@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql-3306-8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - "3306:3306"  # 호스트의 3306 포트를 컨테이너의 3306 포트와 연결
+    networks:
+      - springboot-network  # 동일 네트워크 연결
+
+  app:
+    container_name: ${APP_NAME}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_URL: ${DB_URL}
+      DB_USERNAME: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${PORT}:${PORT}"  # Spring Boot 포트 매핑
+    depends_on:
+      - db
+    networks:
+      - springboot-network  # 동일 네트워크 연결
+
+networks:
+  springboot-network:  # 단일 네트워크 정의
+    driver: bridge
