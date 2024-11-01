@@ -30,7 +30,7 @@ class Post(
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     @JsonBackReference // JSON 직렬화 시 순환 참조 방지
-    @Schema(description = "게시물에 달린 댓글 목록")
+    @Schema(description = "게시물에 댓글 목록")
     var comments: MutableList<Comment> = mutableListOf(),
 
     @Schema(description = "게시물 생성 시간", example = "2024-10-30T12:34:56", required = true)

@@ -15,7 +15,7 @@ data class Comment(
 
     @Id // 기본 키로 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY) // ID 자동 증가
-    @Schema(description = "댓글 고유 식별자", example = "1", required = true)
+    @Schema(description = "댓글 고유 식별", example = "1", required = true)
     var id: Long? = null, // 고유 식별자 필드
 
     @Size(min = 1, message = "댓글 내용은 최소 1자 이상 입력해야 합니다.")
